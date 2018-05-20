@@ -18,7 +18,7 @@ def print_logo():
                                            |___/                          
                                                 Instagram Page info v1.0
             
-            iraniancoders.ir | github.com/iwhh
+            iraniancoders.ir - iran-cyber.net | github.com/iwhh
     """
     for N, line in enumerate(x.split("\n")):
         sys.stdout.write("\x1b[1;%dm%s%s\n" %(random.choice(colors), line, clear))
