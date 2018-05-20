@@ -1,1 +1,1 @@
-# instapageinfo
+# Usange : [python insta.py username]
