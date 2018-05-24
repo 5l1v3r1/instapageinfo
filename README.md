@@ -1,1 +1,1 @@
-# Usange : [python insta.py username]
+# Usage : [python insta.py username]
