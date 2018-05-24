@@ -52,16 +52,28 @@ class InstaPageInfo:
         print y + "[" + r + "+" + y + "] " + g + "Username : " + b + unicodedata.normalize('NFKD', get_user).encode('ascii','ignore')
         get_name = js['Result']['DisplayName']
         time.sleep(2.5)
-        print y + "[" + r + "+" + y + "] " + g + "Name : " + b + unicodedata.normalize('NFKD', get_name).encode('ascii', 'ignore') 
+        if get_name:
+            print y + "[" + r + "+" + y + "] " + g + "Name : " + b + unicodedata.normalize('NFKD', get_name).encode('ascii', 'ignore') 
+        else:
+            print y + "[" + r + "+" + y + "] " + g + "Name : " + b + "None"
         get_id = js['Result']['Id']
         time.sleep(2.5)
-        print y + "[" + r + "+" + y + "] " + g + "Id : " + b + unicodedata.normalize('NFKD', get_id).encode('ascii','ignore')
+        if get_id:
+            print y + "[" + r + "+" + y + "] " + g + "Id : " + b + unicodedata.normalize('NFKD', get_id).encode('ascii','ignore')
+        else:
+            print y + "[" + r + "+" + y + "] " + g + "Id : " + b + "None"
         get_bio = js['Result']['Biography']
         time.sleep(2.5)
-        print y + "[" + r + "+" + y + "] " + g + "Biography : " + b + unicodedata.normalize('NFKD', get_bio).encode('ascii', 'ignore')
+        if get_bio:
+            print y + "[" + r + "+" + y + "] " + g + "Biography : " + b + unicodedata.normalize('NFKD', get_bio).encode('ascii', 'ignore')
+        else:
+            print y + "[" + r + "+" + y + "] " + g + "Biography : " + b + "None"
         get_url = js['Result']['ProfileUrl']
         time.sleep(2.5)
-        print y + "[" + r + "+" + y + "] " + g + "ProfileUrl : " + b + unicodedata.normalize('NFKD', get_url).encode('ascii', 'ignore')
+        if get_url:
+            print y + "[" + r + "+" + y + "] " + g + "ProfileUrl : " + b + unicodedata.normalize('NFKD', str(get_url)).encode('ascii', 'ignore')
+        else:
+            print y + "[" + r + "-" + y + "] " + g + "ProfileUrl : " + b + "None"
         get_profile = js['Result']['ProfilePhoto']
         time.sleep(2.5)
         print y + "[" + r + "+" + y + "] " + g + "Now im going too Download the profile photo ..."
@@ -107,5 +119,5 @@ class InstaPageInfo:
 try:
     insta = InstaPageInfo()
 except KeyboardInterrupt:
-    print "\nNice To meet You <3\nGoodbye"
+    print y + "[" + r + "<3" + y + "] " + g + "Nice To meet You <3\nGoodbye"
     sys.exit()
