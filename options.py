@@ -16,9 +16,9 @@ def print_logo():
          | || | | \__ \ || (_| |  __/ (_| | (_| |  __/| || | | |  _| (_) |
         |___|_| |_|___/\__\__,_|_|   \__,_|\__, |\___|___|_| |_|_|  \___/ 
                                            |___/                          
-                                                Instagram Page info v1.0
+                                                Instagram Page info v1.2
             
-            iraniancoders.ir - iran-cyber.net | github.com/iwhh
+            iraniancoders.ir | github.com/iwhh
     """
     for N, line in enumerate(x.split("\n")):
         sys.stdout.write("\x1b[1;%dm%s%s\n" %(random.choice(colors), line, clear))
