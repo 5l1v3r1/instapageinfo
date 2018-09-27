@@ -1,123 +1,100 @@
-# -*- coding: utf-8 -*-
-import os,json,random,sys,options,unicodedata,urllib
-import time
-try:
-    import requests
-except ImportError:
-    l = 'sudo apt install python-requests'
-    w = 'pip install requests'
-    print " requests Module is not installed yet !\nInstalling ...\nwhen installed start again this script"
-    time.sleep(1.5)
-    os.system([l,w][os.name == 'nt'])
-    sys.exit()
-try:
-    from colorama import Fore, Style
-    r = Fore.RED
-    b = Fore.BLUE
-    g = Fore.GREEN
-    w = Fore.WHITE
-    m = Fore.MAGENTA
-    y = Fore.YELLOW
-    res = Style.RESET_ALL
-except ImportError:
-    l = 'sudo apt install python-colorama'
-    w = 'pip install colorama'
-    print " Colorama Module is not installed yet !\nInstalling ...\nwhen installed start again this script"
-    time.sleep(1.5)
-    os.system([l,w][os.name == 'nt'])
-    sys.exit()
-class InstaPageInfo:
+#!/usr/lib/python3.7
+# Instagram Page iNFo
+# IRAN CYBER SECURITY GROUP
+
+from json import loads
+from requests import get
+import sys
+from random import choice
+from colorama import Fore, Style
+from os import name, system
+from time import sleep
+from webbrowser import open
+
+class Instagram(object):
     def __init__(self):
-        self.run() 
-    def run(self):
+        self.blue = Fore.BLUE
+        self.red = Fore.RED
+        self.white = Fore.WHITE
+        self.yellow = Fore.YELLOW
+        self.magenta = Fore.MAGENTA
+        self.cyan = Fore.CYAN
+        self.green = Fore.GREEN
+        self.res = Style.RESET_ALL
         try:
-            username = sys.argv[1]
-        except:
-            options.clear()
-            options.print_logo()
-            print y + "[" + r + "-" + y + "] " + g + "python insta.py username\n" + y + "[" + r + "!" + y + "] " + w + "Example ~> " + g + "python insta.py ircoders"
-            sys.exit()
-        options.clear()
-        options.print_logo()
-        try:
-            req = requests.get("http://api.reloadlife.me/v1/1/instagram/userinfo?user=" + str(username), timeout=5)
-        except requests.exceptions.ConnectionError:
-            time.sleep(1)
-            print y + "[" + r + "-" + y + "] " + g + "Check Your Internet Connection ..."
-            sys.exit()
-        js = json.loads(req.text)
-        print Fore.CYAN + "---------------------------------"
-        get_user = js['Result']['Username']
-        
-        print y + "[" + r + "+" + y + "] " + g + "Username : " + b + unicodedata.normalize('NFKD', get_user).encode('ascii','ignore')
-        get_name = js['Result']['DisplayName']
-        time.sleep(2.5)
-        if get_name:
-            print y + "[" + r + "+" + y + "] " + g + "Name : " + b + unicodedata.normalize('NFKD', get_name).encode('ascii', 'ignore') 
-        else:
-            print y + "[" + r + "+" + y + "] " + g + "Name : " + b + "None"
-        get_id = js['Result']['Id']
-        time.sleep(2.5)
-        if get_id:
-            print y + "[" + r + "+" + y + "] " + g + "Id : " + b + unicodedata.normalize('NFKD', get_id).encode('ascii','ignore')
-        else:
-            print y + "[" + r + "+" + y + "] " + g + "Id : " + b + "None"
-        get_bio = js['Result']['Biography']
-        time.sleep(2.5)
-        if get_bio:
-            print y + "[" + r + "+" + y + "] " + g + "Biography : " + b + unicodedata.normalize('NFKD', get_bio).encode('ascii', 'ignore')
-        else:
-            print y + "[" + r + "+" + y + "] " + g + "Biography : " + b + "None"
-        get_url = js['Result']['ProfileUrl']
-        time.sleep(2.5)
-        if get_url:
-            print y + "[" + r + "+" + y + "] " + g + "ProfileUrl : " + b + unicodedata.normalize('NFKD', str(get_url)).encode('ascii', 'ignore')
-        else:
-            print y + "[" + r + "-" + y + "] " + g + "ProfileUrl : " + b + "None"
-        get_profile = js['Result']['ProfilePhoto']
-        time.sleep(2.5)
-        print y + "[" + r + "+" + y + "] " + g + "Now im going too Download the profile photo ..."
-        time.sleep(2)
-        print y + "[" + r + "+" + y + "] " + g + "Downloading . . ."
-        urllib.urlretrieve(get_profile, "Profile.jpg")
-        time.sleep(2.5)
-        print y + "[" + r + "+" + y + "] " + g + "Downloaded ~> Profile.jpg"
-        get_priv8 = js['Result']['PrivatePage']
-        if get_priv8:
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Is private page ? : " + b + "Yes"
-            profile_count = js['Result']['Posts']['count']
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Post Counts : " + b + unicode(str(profile_count))
-            get_F = js['Result']['Followers']
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Followers : " + b + unicode(str(get_F))
-            get_Fo = js['Result']['Following']
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Followings : " + b + unicode(str(get_Fo))
-        else:
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Is private page ? : " + b + "No"
-            profile_count = js['Result']['Posts']['count']
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Post Counts : " + b + unicode(str(profile_count))
-            get_P = js['Result']['Posts']['Urls']
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Posts : "
-            for post in get_P:
-                time.sleep(2.5)
-                print r + "[ " + Fore.LIGHTMAGENTA_EX + post + r + " ]"
-            get_F = js['Result']['Followers']
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Followers : " + b + unicode(str(get_F))
-            get_Fo = js['Result']['Following']
-            time.sleep(2.5)
-            print y + "[" + r + "+" + y + "] " + g + "Followings : " + b + unicode(str(get_Fo))
-            print res
+            self.username = sys.argv[1]
+            self.getUser(self.username)
+        except IndexError:
+            self.clear()
+            print(f"{self.cyan}===================\n{self.yellow}[{self.red}+{self.yellow}]{self.yellow}{self.blue}python {self.green}{sys.argv[0]} {self.blue}username{self.res}")
 
 
-try:
-    insta = InstaPageInfo()
-except KeyboardInterrupt:
-    print y + "[" + r + "<3" + y + "] " + g + "Nice To meet You <3\nGoodbye"
-    sys.exit()
+    def clear(self):
+        if name == "nt":
+            system("cls")
+        else:
+            system("clear")
+
+
+    def logo(self):
+        clear = "\x1b[0m"
+        colors = [36, 32, 34, 35, 31, 37]
+
+        x = r"""
+
+             ___           _        ____                  ___        __
+            |_ _|_ __  ___| |_ __ _|  _ \ __ _  __ _  ___|_ _|_ __  / _| ___
+             | || '_ \/ __| __/ _` | |_) / _` |/ _` |/ _ \| || '_ \| |_ / _ \
+             | || | | \__ \ || (_| |  __/ (_| | (_| |  __/| || | | |  _| (_) |
+            |___|_| |_|___/\__\__,_|_|   \__,_|\__, |\___|___|_| |_|_|  \___/
+                                               |___/
+                                                    Instagram Page info v2.0
+                iran-cyber.net | Wrote by iwHH
+                iraniancoders.ir | github.com/iwhh
+        """
+        for N, line in enumerate(x.split("\n")):
+            sys.stdout.write("\x1b[1;%dm%s%s\n" %(choice(colors), line, clear))
+            sleep(0.05)
+    def getUser(self, user):
+        self.clear()
+        self.logo()
+        headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:62.0) Gecko/20100101 Firefox/62.0'}
+        self.request = get(f"http://Api.pwrteam.ir/InstaInFo.php?user={user}", headers=headers, timeout=5)
+        self.request.encoding = "utf-8"
+        self.getInformation(self.request.text)
+
+
+    def getInformation(self, data):
+        try:
+            loader = loads(data)
+            bio = loader["biography"]
+            followers = loader["edge_followed_by"]["count"]
+            followings = loader["edge_follow"]["count"]
+            name = loader["full_name"]
+            id = loader["id"]
+            profile_photo = loader["profile_pic_url_hd"]
+            post_counter = loader["edge_owner_to_timeline_media"]["count"]
+            profile_url = loader["external_url"]
+            private = loader["is_private"]
+        except TypeError:
+            print(f"{self.red}Invalid Username{self.res}")
+            sys.exit(1)
+        print(f"""
+name : {name}
+biography : {bio}
+followers : {followers}
+followings : {followings}
+id : {id}
+photo Url : {profile_photo}
+profile Url : {profile_url}
+post counts : {post_counter}
+is private ? : {private}""")
+        open_it = input("===============\nOpen This page : ? [y/n]")
+        if open_it == "y":
+            open(f"https://instagram.com/{self.username}")
+            print(self.res)
+            sys.exit()
+        else:
+            print(self.res)
+if __name__ == "__main__":
+    run = Instagram()
